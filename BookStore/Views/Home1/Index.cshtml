@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<div>     
+    @Html.DropDownList("Author", ViewBag.Books as SelectList)
+</div>
+<div>@Html.ListBox("countries", new MultiSelectList(new string[]
+     {
+         "Россия",
+         "США", 
+         "Китай",
+         "Индия"
+     }))</div>
+</body>
+</html>

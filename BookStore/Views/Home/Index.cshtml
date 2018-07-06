@@ -55,6 +55,7 @@
     
     @ListHelper.CreateList(Html, countries, new {@class = "btn", id = "countries"})
     
+    @Html.DropDownList("countries", new SelectList(new string[] {"Russia", "Canada", "France"}), "Countries")
 
 </div>
 @section Footer{
