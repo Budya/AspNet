@@ -215,6 +215,7 @@
     <Content Include="Views\Home\Buy.cshtml" />
     <Content Include="Views\Home\Partial.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
+    <Content Include="Views\Home\EditBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
