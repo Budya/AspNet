@@ -10,23 +10,15 @@ namespace Football.Controllers
 {
     public class HomeController : Controller
     {
+        SoccerContext db = new SoccerContext();
+
         public ActionResult Index()
         {
-            return View();
+            var players = db.Players.Include(p => p.Team);
+
+            return View(players.ToList());
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }
