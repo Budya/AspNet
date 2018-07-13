@@ -161,6 +161,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseDbInitializer.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,6 +206,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
