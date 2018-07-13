@@ -13,7 +13,7 @@ namespace Pagination.Models
 
         public int TotalPages //всего страниц
         {
-            get { return (int) Math.Ceiling((decimal) TotalItems / PageSize); }
+            get { return (int)Math.Ceiling((decimal) TotalItems / PageSize); }
         }
     }
 
