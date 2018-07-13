@@ -6,12 +6,12 @@ using System.Web;
 
 namespace Students.Models
 {
-    public class StudentContext : DbContext
+    public class StudentsContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
-        public StudentContext(): base("DefaultConnection") { }
+        public StudentsContext(): base("DefaultConnection") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
