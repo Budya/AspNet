@@ -1,0 +1,15 @@
+﻿<input type ="text" name="name" id ="search"/>
+<input type="button" id="submit" value="Поиск"/>
+
+<div id="results"></div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#submit').click(function(e) {
+            e.preventDefault();
+            var name = $('#search').val();
+            name = name.replace(new RegExp(" ", 'g'), "%20");
+            $('#results').load("http://localhost:51805/Home/BookSearch?name=" + name);
+        });
+    });
+</script>

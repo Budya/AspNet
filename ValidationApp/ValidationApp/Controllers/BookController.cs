@@ -20,6 +20,30 @@ namespace ValidationApp.Controllers
             return View(db.Books.ToList());
         }
 
+        public ActionResult IndexAjax()
+        {
+            return View();
+        }
+
+        public ActionResult BestBook()
+        {
+            Book book = db.Books.First();
+            return PartialView(book);
+        }
+
+        [HttpPost]
+        public ActionResult BookSearch(string name)
+        {
+            var allbooks = db.Books.Where(a => a.Author.Contains(name)).ToList();
+
+            if (allbooks.Count <= 0)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(allbooks);
+        }
+
         // GET: Book/Details/5
         public ActionResult Details(int? id)
         {
