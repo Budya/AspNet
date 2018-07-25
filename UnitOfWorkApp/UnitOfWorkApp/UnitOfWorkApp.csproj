@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9938A966-FB40-4635-AD36-6A7106A2CECF}</ProjectGuid>
+    <ProjectGuid>{8DF401CC-8E0C-4311-8D31-F5958A9F27A4}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OnionApp</RootNamespace>
-    <AssemblyName>OnionApp</AssemblyName>
+    <RootNamespace>UnitOfWorkApp</RootNamespace>
+    <AssemblyName>UnitOfWorkApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -85,18 +85,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -150,10 +138,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -171,14 +155,16 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\OrderContext.cs" />
+    <Compile Include="Models\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\NinjectDependencyResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -223,7 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -232,28 +217,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OnionApp.Domain.Core\OnionApp.Domain.Core.csproj">
-      <Project>{1af45964-9909-4720-a380-294dd8478093}</Project>
-      <Name>OnionApp.Domain.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnionApp.Domain.Interfaces\OnionApp.Domain.Interfaces.csproj">
-      <Project>{ecd0fe0f-97bc-4dda-8317-88b219a7a86d}</Project>
-      <Name>OnionApp.Domain.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnionApp.Infrastructure.Business\OnionApp.Infrastructure.Business.csproj">
-      <Project>{61582D33-A13B-4C88-85C8-EB155E59B42D}</Project>
-      <Name>OnionApp.Infrastructure.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnionApp.Infrastructure.Data\OnionApp.Infrastructure.Data.csproj">
-      <Project>{D736DB23-9DEE-443B-A3B9-37AB59E95EED}</Project>
-      <Name>OnionApp.Infrastructure.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnionApp.Services.Interfaces\OnionApp.Services.Interfaces.csproj">
-      <Project>{f85ab987-ccca-4a11-ab30-4baf3bde9f26}</Project>
-      <Name>OnionApp.Services.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -271,9 +234,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63525</DevelopmentServerPort>
+          <DevelopmentServerPort>65134</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63525/</IISUrl>
+          <IISUrl>http://localhost:65134/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
