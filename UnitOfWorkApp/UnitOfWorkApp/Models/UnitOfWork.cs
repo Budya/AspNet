@@ -8,6 +8,7 @@ namespace UnitOfWorkApp.Models
     public class UnitOfWork : IDisposable
     {
         private OrderContext db = new OrderContext();
+        
         private BookRepository bookRepository;
         private OrderRepository orderRepository;
 
