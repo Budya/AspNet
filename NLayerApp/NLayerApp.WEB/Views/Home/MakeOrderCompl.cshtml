@@ -1,0 +1,42 @@
+﻿@model NLayerApp.WEB.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "MakeOrderCompl";
+}
+
+<h2>MakeOrderCompl</h2>
+
+<div>
+    <h4>OrderViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

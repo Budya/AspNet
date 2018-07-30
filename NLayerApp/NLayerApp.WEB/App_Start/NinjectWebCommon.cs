@@ -1,3 +1,8 @@
+using Ninject.Modules;
+using Ninject.Web.Mvc;
+using NLayerApp.BLL.Infrastructure;
+using NLayerApp.WEB.Util;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NLayerApp.WEB.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NLayerApp.WEB.App_Start.NinjectWebCommon), "Stop")]
 
@@ -39,7 +44,10 @@ namespace NLayerApp.WEB.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            // устанавливаем строку подключения
+            var modules = new INinjectModule[] {new ServiceModule("DefaultConnection")};
+            var kernel = new StandardKernel(modules);
+
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -48,11 +56,27 @@ namespace NLayerApp.WEB.App_Start
                 RegisterServices(kernel);
                 return kernel;
             }
+
             catch
             {
                 kernel.Dispose();
                 throw;
             }
+
+            //var kernel = new StandardKernel();
+            //try
+            //{
+            //    kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+            //    kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+            //    RegisterServices(kernel);
+            //    return kernel;
+            //}
+            //catch
+            //{
+            //    kernel.Dispose();
+            //    throw;
+            //}
         }
 
         /// <summary>
@@ -61,6 +85,7 @@ namespace NLayerApp.WEB.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            System.Web.Mvc.DependencyResolver.SetResolver(new NLayerApp.WEB.Util.NinjectDependencyResolver(kernel));
         }        
     }
 }
